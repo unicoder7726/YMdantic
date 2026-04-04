@@ -1,3 +1,4 @@
+import logging
 from json import JSONDecodeError
 from logging import getLogger
 from typing import Any
@@ -74,6 +75,7 @@ class YMHttpMethod(AiohttpMethod):
                 self.method_spec.response_type,
             )
         except (ValueError, TypeError, AttributeError) as e:
+            logging.error(f"[YMdantic] {e}")
             raise MalformedResponse from e
 
     async def _on_error_default(self, response: ClientResponse) -> Any:
